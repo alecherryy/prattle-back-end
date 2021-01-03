@@ -27,8 +27,9 @@ public class DatabaseDAOChat {
      * @param message to be added
      */
     public String createMessage(Document message) {
+        db.addMessage(message);
 
-        return db.addMessage(message);
+        return message.get("_id").toString();
     }
 
     /**
