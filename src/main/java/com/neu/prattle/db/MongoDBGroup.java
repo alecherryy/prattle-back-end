@@ -22,7 +22,7 @@ public class MongoDBGroup implements Database {
 
   private static final String err = "Operation not supported.";
   private static DBConnection conn = new DBConnection();
-  private static String groupName = "groupName";
+  private static String groupUsername = "groupUsername";
   private MongoCollection<Group> groups;
 
   /**
@@ -72,11 +72,11 @@ public class MongoDBGroup implements Database {
   /**
    * Remove a group from the database.
    *
-   * @param name of the group to be removed
-   * @return
+   * @param username of the group to be removed
+   * @return the deleted group
    */
-  public DeleteResult removeGroup(String name) {
-    return groups.deleteOne(eq(groupName, name));
+  public DeleteResult removeGroup(String username) {
+    return groups.deleteOne(eq(groupUsername, username));
   }
 
   /**
@@ -101,12 +101,12 @@ public class MongoDBGroup implements Database {
   /**
    * Find a group in the database.
    *
-   * @param name of the user to find
-   * @return the user
+   * @param username of the group to find
+   * @return the group
    */
-  public Group findGroup(String name) {
+  public Group findGroup(String username) {
     // find user in db
-    return groups.find(eq(groupName, name)).projection(excludeId()).first();
+    return groups.find(eq(groupUsername, username)).projection(excludeId()).first();
   }
 
 
@@ -126,6 +126,6 @@ public class MongoDBGroup implements Database {
    * @return the update result
    */
   public UpdateResult updateGroup(Group group) {
-    return groups.replaceOne(eq(groupName, group.getGroupName()), group);
+    return groups.replaceOne(eq(groupUsername, group.getGroupUsername()), group);
   }
 }

@@ -14,6 +14,7 @@
     let host = document.location.host;
     let pathname = document.location.pathname;
     let path = `https://${host}/user/signup`;
+    console.log(path);
 
     // posting the user to db
     fetch(path, {
